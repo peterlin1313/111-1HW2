@@ -1,8 +1,8 @@
 ﻿# 第2次作業-作業-HW2
 >
->學號：1234567 
+>學號：109111110 
 ><br />
->姓名：王小明 
+>姓名：林育德 
 ><br />
 >作業撰寫時間：180 (mins，包含程式撰寫時間)
 ><br />
@@ -15,44 +15,102 @@
 
 ## 說明程式與內容
 
-開始寫說明，該說明需說明想法，
-並於之後再對上述想法的每一部分將程式進一步進行展現，
-若需引用程式區則使用下面方法，
-若為.cs檔內程式除了於敘述中需註明檔案名稱外，
-還需使用語法` ```csharp 程式碼 ``` `，
-下段程式碼則為使用後結果：
+
 
 ```csharp
-public void mt_getResult(){
-    ...
+char[,] ia_Map = new char[10, 10];
+            int[] ia_MIndex = new int[10] { 0, 7, 13, 28, 44, 62, 74, 75, 87, 90 };
+
+
+            for (int i_Row = 0; i_Row < ia_Map.GetLength(0); i_Row++) {
+                for (int i_Col = 0; i_Col < ia_Map.GetLength(1); i_Col++) {
+                    ia_Map[i_Row, i_Col] = '0';
+                }
+            }
+            //放上炸彈
+            for (int i_Ind = 0; i_Ind < ia_MIndex.Length; i_Ind++) {
+                int i_Row = (ia_MIndex[i_Ind] / ia_Map.GetLength(1));
+                int i_Row = ia_MIndex[i_Ind] % (ia_Map.GetLength(1));
+                ia_Map[i_Row, i_Col] = '*';
+            }
+            //處裡周邊數字
+            for (int i_Ind = 0; i_Ind < ia_MIndex.Length; i_Ind++) {
+                int i_Row = (ia_MIndex[i_Ind] / ia_Map.GetLength(1));
+                int i_Row = ia_MIndex[i_Ind] % (ia_Map.GetLength(1));
+                mt_CalBombValue(ref ia_Map, i_Row, i_Col, ia_Map.GetLength(0), ia_Map.GetLength(1));
+            }
+            for (int i_Ind = 0; i_Ind < ia_MIndex.Length; i_Ind++)
+            {
+                int i_Row = (ia_MIndex[i_Ind] / ia_Map.GetLength(1));
+                int i_Row = ia_MIndex[i_Ind] % (ia_Map.GetLength(1));
+                Response.Write(ia_Map[i_Row, i_Col]) = '*';
+            }
+        }
+            
+
+        void mt_CalBombValue(ref char[,] ia_Map, int i_Row, int i_Col, int i_MaxR, int i_MaxC) {
+            bool b_IsBomb = mt_IsBomb(ref ia_Map, i_Row - 1, i_Col - 1, i_MaxR, int i_MaxC,);
+            if (b_IsBomb == false) 
+                mt_Addone(ref ia_Map, i_Row -1, i_Col -1);
+
+            b_IsBomb = mt_IsBomb(ref ia_Map, i_Row - 1, i_Col, i_MaxR, int i_MaxC);
+            if (b_IsBomb == false)
+                mt_Addone(ref ia_Map, i_Row - 1, i_Col);
+
+            b_IsBomb = mt_IsBomb(ref ia_Map, i_Row + 1, i_Col + 1, i_MaxR, int i_MaxC);
+            if (b_IsBomb == false)
+                mt_Addone(ref ia_Map, i_Row + 1, i_Col + 1);
+
+            b_IsBomb = mt_IsBomb(ref ia_Map, i_Row, i_Col - 1, i_MaxR, int i_MaxC);
+            if (b_IsBomb == false)
+                mt_Addone(ref ia_Map, i_Row, i_Col - 1);
+
+            b_IsBomb = mt_IsBomb(ref ia_Map, i_Row, i_Col + 1, i_MaxR, int i_MaxC);
+            if (b_IsBomb == false)
+                mt_Addone(ref ia_Map, i_Row, i_Col +1);
+
+            b_IsBomb = mt_IsBomb(ref ia_Map, i_Row, i_Col + 1, i_MaxR, int i_MaxC);
+            if (b_IsBomb == false)
+                mt_Addone(ref ia_Map, i_Row, i_Col + 1);
+
+            b_IsBomb = mt_IsBomb(ref ia_Map, i_Row + 1, i_Col - 1, i_MaxR, int i_MaxC);
+            if (b_IsBomb == false)
+                mt_Addone(ref ia_Map, i_Row + 1, i_Col - 1);
+
+            b_IsBomb = mt_IsBomb(ref ia_Map, i_Row + 1, i_Col, i_MaxR, int i_MaxC);
+            if (b_IsBomb == false)
+                mt_Addone(ref ia_Map, i_Row + 1, i_Col);
+            b_IsBomb = mt_IsBomb(ref ia_Map, i_Row + 1, i_Col + 1, i_MaxR, int i_MaxC);
+            if (b_IsBomb == false)
+                mt_Addone(ref ia_Map, i_Row - 1, i_Col - 1);
+        }
+        
+
+        bool mt_IsBomb(ref char[,] ia_Map, int i_Row, int i_Col, int i_MaxR, int i_MaxC) {
+            bool b_IsBomb = false;
+            if (ia_Map[i_Row, i_Col] == '*') {
+                b_IsBomb = true;
+            }
+
+            else if (i_Row < 0 || i_Row >= i_MaxR) {
+                b_IsBomb = true;
+            }
+            else if (i_Col < 0 || i_Col >= i_MaxC){
+                b_IsBomb = true;
+            }
+
+            return b_IsBomb;
+        }
+        void mt_Addone(ref char[,] ia_Map, int i_Row, int i_Col) {
+            int IValue = Convert.ToInt32(ia_Map[i_Row, i_Col]);
+            IValue++;
+            ia_Map[i_Row,i_Col] = Convert.ToChar(IValue)
 }
-```
 
-若要於內文中標示部分.aspx檔，則使用以下標籤` ```html 程式碼 ``` `，
-下段程式碼則為使用後結果：
 
-```html
-<%@ Page Language="C#" AutoEventWireup="true" ...>
-
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-<meta http-equiv="Content-Type" ...>
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-        <div>
-        </div>
-    </form>
-</body>
-</html>
-```
 
 
 ## 個人認為完成作業須具備觀念
 
-開始寫說明，需要說明本次作業個人覺得需學會那些觀念 (需寫成文章，需最少50字，
-並且文內不得有你、我、他三種文字)
+需使用for迴圈，還須用到屬性轉換等與陣列建立等方法。
 
